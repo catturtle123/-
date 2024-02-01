@@ -14,7 +14,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "dType")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Item {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private Long id;
 
@@ -38,5 +38,11 @@ public abstract class Item {
             throw new NotEnoughStockException("need more stock");
         }
         this.stockQuantity = reststock;
+    }
+
+    public void change(String name, int price, int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+        this.name = name;
+        this.price = price;
     }
 }
